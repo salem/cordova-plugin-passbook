@@ -69,3 +69,13 @@ passbook.addPass = function (file, passCallback, errorCallback) {
 passbook.openPass = function (passOrUrl, successCallback, errorCallback) {
     exec(successCallback, errorCallback, "Passbook", "openPass", [passOrUrl]);
 };
+
+/**
+ *
+ * @param {identifier:string,serialNumber: string} options
+ * @param {Function} successCallback
+ * @param {Function} errorCallback
+ */
+passbook.isPassAvailable = function (options, successCallback, errorCallback) {
+    exec(successCallback, errorCallback, "Passbook", "isPassAvailable", [options]);
+};

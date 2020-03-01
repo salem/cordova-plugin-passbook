@@ -228,6 +228,28 @@ typedef void (^AddPassResultBlock)(PKPass *pass, BOOL added);
     }];
 }
 
+- (void)isPassAvailable:(CDVInvokedUrlCommand*)command
+{
+    if(![self ensureAvailability:command]) {
+        return;
+    }
+    NSDictionary *options = [command argumentAtIndex:0];
+    NSString *identifier = [options valueForKey:@"identifier"];
+    NSString *serialNumber = [options valueForKey:@"serialNumber"];
+
+    PKPassLibrary *passLib = [[PKPassLibrary alloc] init];
+    PKPass *pass = [passLib passWithPassTypeIdentifier:identifier serialNumber:serialNumber];
+    if(!pass) {
+        CDVPluginResult *commandResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:false];
+        [self.commandDelegate sendPluginResult:commandResult callbackId:command.callbackId];
+        return;
+    }
+
+    CDVPluginResult *commandResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:true];
+    [self.commandDelegate sendPluginResult:commandResult callbackId:command.callbackId];
+}
+
+
 #pragma mark - PKAddPassesViewControllerDelegate
 
 -(void)addPassesViewControllerDidFinish:(PKAddPassesViewController *)controller

@@ -6,5 +6,5 @@
 - (void)downloadPass:(CDVInvokedUrlCommand*)command;
 - (void)addPass:(CDVInvokedUrlCommand*)command;
 - (void)openPass:(CDVInvokedUrlCommand*)command;
-
+- (void)isPassAvailable:(CDVInvokedUrlCommand*)command;
 @end
